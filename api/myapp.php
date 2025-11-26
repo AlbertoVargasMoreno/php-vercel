@@ -9,6 +9,8 @@ function isJson(string $string): bool {
 }
 
 function appReadFile(string $filename = "notes.json"): array {
+    $cwd = getcwd();
+    var_dump($cwd); die();
     $fileReaded = file_get_contents($filename);
     $comments = isJson($fileReaded)
         ? json_decode($fileReaded, true)
@@ -34,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $email = $_POST['email'];
     // echo $email;
     $json = file_get_contents('php://input');
+    // var_dump($json);
+    // echo PHP_EOL;
     $data = json_decode($json, true);
 
     $comments = appReadFile();
