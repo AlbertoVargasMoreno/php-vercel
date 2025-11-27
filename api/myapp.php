@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $comments = appReadFile();
     $content = updateContent($comments, $data);
-    writeFile(content: $content);
+    // writeFile(content: $content);
 
     $dataResponse = json_decode($content);
 }
