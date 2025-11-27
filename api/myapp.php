@@ -28,6 +28,7 @@ function updateContent(array $comments, array $data) : string {
 
 function writeFile(string $filename = "notes.json", string $content = "\n") : void {
     $myfile = fopen($filename, "w") or die("Unable to open file!");
+    // vercel doesn't grant writing permissions, and VERCEL-BLOB isn't available for PHP
     fwrite($myfile, $content);
     fclose($myfile);
 }
