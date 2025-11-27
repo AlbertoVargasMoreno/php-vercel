@@ -9,9 +9,10 @@ function isJson(string $string): bool {
 }
 
 function appReadFile(string $filename = "notes.json"): array {
-    $cwd = getcwd();
-    var_dump($cwd); die();
-    $fileReaded = file_get_contents($filename);
+    // $cwd = getcwd();
+    // var_dump($cwd); die();
+    $filePath = "/var/task/user/api/{$filename}";
+    $fileReaded = file_get_contents($filePath, true);
     $comments = isJson($fileReaded)
         ? json_decode($fileReaded, true)
         : [];
@@ -42,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $comments = appReadFile();
     $content = updateContent($comments, $data);
-    writeFile(content: $content);
+    // writeFile(content: $content);
 
     $dataResponse = json_decode($content);
 }
