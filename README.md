@@ -7,6 +7,52 @@
 
 Template repository to deploy PHP application to Vercel.
 
+## My take on this
+
+1. I followed first steps
+2. Got errors due to runtime tag
+3. Added a new function ![myapp.php](./api/myapp.php)
+4. Could test function HTTP responses
+
+## Important notes
+
+- It was necessary to update the runtime tag, because in first Deployment attempt I got errors due to deprecated Node version
+```
+this was done through searching usage of runtime portion of vercel json
+then in github, I decided to take the one with PHP8.1 to match my development environment
+```
+
+- For my custom script to be accessible, I updated the vercel.json to declare a new URI mapped to my added file
+
+- After exploring the vercel interface, I found that each deployment is equivalent to each commit in master
+
+- I research on options to have persistent data. 
+```
+Supabase. seems good, uses Postgres. but it is necessary to sign up, and set up. I wan't the less complex solution for this project
+
+json file. I though could work. Even used it in local and seemed promising but at the end the vercel permissions restrict writing files
+
+vercel blob. good. I could keep using the json file approach. But with PHP is not supported, it is only available for the native languages supported :C
+```
+
+- `cmdr` has issues with `CURL`
+```
+when I use CURL in cmdr to test a POST request, the app receives the body request as a string, but decoding it as json fails, and returns null.
+
+I needed to use git-bash.exe included in the bin of laragon. Running a similar command works fine.
+
+I don't have a clue on what changes must be done to the format
+```
+
+- Had Issues with reading file 'notes.json'. It seemed to be related with the path and the path from where It was invoked, the solution was to hardcode the absolute path in production
+
+```bash
+curl -X POST http://localhost:3000/api/myapp.php --data '{"comment": "I want to store this"}'
+
+curl -X POST http://localhost:3000/api/myapp.php --data '{"comment": "whos there?"}'
+```
+
+
 ## Structure 📂
 ```
 php-app-vercel
