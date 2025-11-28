@@ -8,21 +8,41 @@ function isJson(string $string): bool {
    return json_last_error() === JSON_ERROR_NONE;
 }
 
+function fetchJsonDataWithCurl(string $url) {
+    try {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $jsonString = curl_exec($curl);
+        
+        if (curl_errno($curl)) {
+            throw new Exception('cURL error: ' . curl_error($curl));
+        }
+        
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        if ($httpCode !== 200) {
+            throw new Exception('Network response was not ok. HTTP Code: ' . $httpCode);
+        }
+        
+        $jsonData = isJson($jsonString)
+            ? json_decode($jsonString, true)
+            : [];
+        
+        // print_r($jsonData);
+        return $jsonData;
+    } catch (Exception $error) {
+        echo 'Error fetching JSON data: ' . $error->getMessage();
+        return null;
+    }
+}
+
 function appReadFile(string $filename = "notes.json") {
-    // $cwd = getcwd();
-    // var_dump($cwd); die();
-    // $filePath = "/var/task/user/api/{$filename}";
     $client = new \VercelBlobPhp\Client();
     $result = $client->head($filename);
-    return $result;
-    // $fileReaded = file_get_contents($filePath, true);
-/*
-    $comments = isJson($fileReaded)
-        ? json_decode($fileReaded, true)
-        : [];
+    $url = $result->url ?? '';
+    $comments = fetchJsonDataWithCurl($url);
     (!array_key_exists('comments', $comments)) && die("error decoding readed data");
     return $comments;
-    */
 }
 
 function updateContent(array $comments, array $data) : string {
