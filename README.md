@@ -1,5 +1,7 @@
 # php-app-vercel
 
+[https://php-vercel-orcin-rho.vercel.app/app](https://php-vercel-orcin-rho.vercel.app/app)
+
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![Composer](https://img.shields.io/badge/Composer-885630?style=for-the-badge&logo=composer&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
@@ -50,6 +52,9 @@ I don't have a clue on what changes must be done to the format
 curl -X POST http://localhost:3000/api/myapp.php --data '{"comment": "I want to store this"}'
 
 curl -X POST http://localhost:3000/api/myapp.php --data '{"comment": "whos there?"}'
+
+curl -X POST https://php-vercel-orcin-rho.vercel.app/app --data '{"comment": "from local to prod"}'
+
 ```
 
 
