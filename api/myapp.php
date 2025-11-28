@@ -8,16 +8,21 @@ function isJson(string $string): bool {
    return json_last_error() === JSON_ERROR_NONE;
 }
 
-function appReadFile(string $filename = "notes.json"): array {
+function appReadFile(string $filename = "notes.json") {
     // $cwd = getcwd();
     // var_dump($cwd); die();
-    $filePath = "/var/task/user/api/{$filename}";
-    $fileReaded = file_get_contents($filePath, true);
+    // $filePath = "/var/task/user/api/{$filename}";
+    $client = new \VercelBlobPhp\Client();
+    $result = $client->head($filename);
+    return $result;
+    // $fileReaded = file_get_contents($filePath, true);
+/*
     $comments = isJson($fileReaded)
         ? json_decode($fileReaded, true)
         : [];
     (!array_key_exists('comments', $comments)) && die("error decoding readed data");
     return $comments;
+    */
 }
 
 function updateContent(array $comments, array $data) : string {
@@ -27,20 +32,20 @@ function updateContent(array $comments, array $data) : string {
 }
 
 function writeFile(string $filename = "notes.json", string $content = "\n") : void {
-    $myfile = fopen($filename, "w") or die("Unable to open file!");
+    // $myfile = fopen($filename, "w") or die("Unable to open file!");
+
+    $client = new \VercelBlobPhp\Client();
+    $result = $client->put(
+        path: $filename,
+        content: $content,
+    );
+    $dataResponse = $result;
     // vercel doesn't grant writing permissions, and VERCEL-BLOB isn't available for PHP
-    fwrite($myfile, $content);
-    fclose($myfile);
+    // fwrite($myfile, $content);
+    // fclose($myfile);
 }
 
 $dataResponse = [];
-$client = new \VercelBlobPhp\Client();
-$result = $client->put(
-    path: 'test.txt',   // path
-    content: 'hello world', // content,
-);
-$dataResponse = $result;
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $email = $_POST['email'];
     // echo $email;
@@ -50,10 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode($json, true);
 
     $comments = appReadFile();
-    $content = updateContent($comments, $data);
+    // $content = updateContent($comments, $data);
     // writeFile(content: $content);
 
-    $dataResponse = json_decode($content);
+    // $dataResponse = json_decode($content);
+    $dataResponse = $comments;
 }
 
 $default_response = [
