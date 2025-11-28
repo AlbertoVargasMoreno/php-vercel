@@ -34,6 +34,13 @@ function writeFile(string $filename = "notes.json", string $content = "\n") : vo
 }
 
 $dataResponse = [];
+$client = new \VercelBlobPhp\Client();
+$result = $client->put(
+    path: 'test.txt',   // path
+    content: 'hello world', // content,
+);
+$dataResponse = $result;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $email = $_POST['email'];
     // echo $email;
