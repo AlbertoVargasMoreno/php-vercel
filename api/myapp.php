@@ -51,21 +51,17 @@ function updateContent(array $comments, array $data) : string {
     return $json_response;
 }
 
-function writeFile(string $filename = "notes.json", string $content = "\n") : void {
-    // $myfile = fopen($filename, "w") or die("Unable to open file!");
-
+function writeFile(string $filename = "notes.json", string $content = "\n")  {
     $client = new \VercelBlobPhp\Client();
     $result = $client->put(
         path: $filename,
         content: $content,
     );
-    $dataResponse = $result;
-    // vercel doesn't grant writing permissions, and VERCEL-BLOB isn't available for PHP
-    // fwrite($myfile, $content);
-    // fclose($myfile);
+    return $result;
 }
 
 $dataResponse = [];
+$result = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $email = $_POST['email'];
     // echo $email;
@@ -75,16 +71,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode($json, true);
 
     $comments = appReadFile();
-    // $content = updateContent($comments, $data);
-    // writeFile(content: $content);
+    $content = updateContent($comments, $data);
+    $result = writeFile(content: $content);
 
-    // $dataResponse = json_decode($content);
-    $dataResponse = $comments;
+    $dataResponse = json_decode($content);
 }
 
 $default_response = [
     "message" => "hi, there!",
-    "data" => $dataResponse
+    "data" => $dataResponse,
+    "result" => $result
 ];
 
 $json_response = json_encode($default_response);
