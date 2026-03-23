@@ -59,7 +59,7 @@ function writeFile(string $filename = "notes.json", string $content = "\n")  {
         options: new \VercelBlobPhp\CommonCreateBlobOptions(
             addRandomSuffix: false,
             contentType: 'application/json',
-            // allowOverwrite: true
+            allowOverwrite: true
         )
     );
     return $result;
