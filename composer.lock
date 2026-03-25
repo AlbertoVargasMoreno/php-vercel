@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32ef916df43b1d118123ca0df0e56499",
+    "content-hash": "981a494be2f09abc0035b0b477f25ddb",
     "packages": [
         {
             "name": "dam-bal/vercel-blob-php",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dam-bal/vercel-blob-php.git",
-                "reference": "a8a6365d93041245edb442a07efd372bf0ba1d2b"
+                "reference": "2676ab7b6a7c70f7c6c3d433a279a6b31250bc76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dam-bal/vercel-blob-php/zipball/a8a6365d93041245edb442a07efd372bf0ba1d2b",
-                "reference": "a8a6365d93041245edb442a07efd372bf0ba1d2b",
+                "url": "https://api.github.com/repos/dam-bal/vercel-blob-php/zipball/2676ab7b6a7c70f7c6c3d433a279a6b31250bc76",
+                "reference": "2676ab7b6a7c70f7c6c3d433a279a6b31250bc76",
                 "shasum": ""
             },
             "require": {
@@ -45,9 +45,9 @@
             "description": "PHP Client for Vercel Blob",
             "support": {
                 "issues": "https://github.com/dam-bal/vercel-blob-php/issues",
-                "source": "https://github.com/dam-bal/vercel-blob-php/tree/1.0.1"
+                "source": "https://github.com/dam-bal/vercel-blob-php/tree/1.1.0"
             },
-            "time": "2024-04-19T19:16:03+00:00"
+            "time": "2026-03-22T05:33:22+00:00"
         },
         {
             "name": "graham-campbell/result-type",
